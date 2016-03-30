@@ -1,5 +1,6 @@
 ﻿using Model.EF;
 using Model.ViewModel;
+using PagedList;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -24,7 +25,16 @@ namespace Model.Dao
         {
             return db.Products.Where(x => x.Name.Contains(keyword)).Select(x => x.Name).ToList();
         }
+        public IEnumerable<Product> ListAllPaging(string searchString, int page, int pageSize)
+        {
+            IQueryable<Product> model = db.Products;
+            if (!string.IsNullOrEmpty(searchString))
+            {
+                model = model.Where(x => x.Name.Contains(searchString) || x.Name.Contains(searchString));
+            }
 
+            return model.OrderByDescending(x => x.CreatedDate).ToPagedList(page, pageSize);
+        }
         /// <summary>
         /// Get list product by category
         /// </summary>
