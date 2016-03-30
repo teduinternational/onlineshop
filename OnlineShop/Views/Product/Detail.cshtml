@@ -1,0 +1,160 @@
+﻿@model Model.EF.Product
+@{
+    ViewBag.Title = "Detail";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var category = (Model.EF.ProductCategory)ViewBag.Category;
+    var relatedProducts = (List<Model.EF.Product>)ViewBag.RelatedProducts;
+}
+
+<div class="content">
+    <div class="content_top">
+        <div class="back-links">
+            <p><a href="/">Trang chủ</a> >>>> <a href="/san-pham/@category.MetaTitle-@category.ID">@category.Name</a></p>
+        </div>
+        <div class="clear"></div>
+    </div>
+    <div class="section group">
+        <div class="cont-desc span_1_of_2">
+            <div class="product-details">
+                <div class="grid images_3_of_2">
+                    <div id="container">
+                        <div id="products_example">
+                            <div id="products">
+                                <div class="slides_container">
+                                    <a href="#" target="_blank"><img src="@Model.Image" alt=" " /></a>
+                                </div>
+                                @*<ul class="pagination">
+                                    <li><a href="#"><img src="images/thumbnailslide-1.jpg" alt=" " /></a></li>
+                                    <li><a href="#"><img src="images/thumbnailslide-2.jpg" alt=" " /></a></li>
+                                    <li><a href="#"><img src="images/thumbnailslide-3.jpg" alt=" " /></a></li>
+                                    <li><a href="#"><img src="images/thumbnailslide-4.jpg" alt=" " /></a></li>
+                                    <li><a href="#"><img src="images/thumbnailslide-5.jpg" alt=" " /></a></li>
+                                    <li><a href="#"><img src="images/thumbnailslide-6.jpg" alt=" " /></a></li>
+                                </ul>*@
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="desc span_3_of_2">
+                    <h2>@Model.Name </h2>
+                    <p>@Model.Description</p>
+                    <div class="price">
+                        <p>Giá: <span>@(Model.Price.HasValue ? Model.Price.Value.ToString("N0") : "Liên hệ")</span></p>
+                    </div>
+                    <div class="share-desc">
+                        <div class="share">
+                            <p>Chia sẻ :</p>
+                            <ul>
+                                <li><a href="#"><img src="images/facebook.png" alt="" /></a></li>
+                                <li><a href="#"><img src="images/twitter.png" alt="" /></a></li>
+                            </ul>
+                        </div>
+                        <div class="button"><span><a href="#">Thêm vào giỏ</a></span></div>
+                        <div class="clear"></div>
+                    </div>
+                    <div class="wish-list">
+                        <ul>
+                            <li class="wish"><a href="#">Thêm vào yêu thích</a></li>
+                            <li class="compare"><a href="#">So sánh</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="clear"></div>
+            </div>
+            <div class="product_desc">
+                <div id="horizontalTab">
+                    <ul class="resp-tabs-list">
+                        <li>Chi tiết</li>
+
+                        <div class="clear"></div>
+                    </ul>
+                    <div class="resp-tabs-container">
+                        <div class="product-desc">
+                            @Html.Raw(Model.Detail)
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <script type="text/javascript">
+                $(document).ready(function () {
+                    $('#horizontalTab').easyResponsiveTabs({
+                        type: 'default', //Types: default, vertical, accordion
+                        width: 'auto', //auto or any width like 600px
+                        fit: true   // 100% fit in a container
+                    });
+                });
+            </script>
+            <div class="content_bottom">
+                <div class="heading">
+                    <h3>Sản phẩm liên quan</h3>
+                </div>
+                <div class="see">
+                    <p><a href="/san-pham">Xem tất cả</a></p>
+                </div>
+                <div class="clear"></div>
+            </div>
+            <div class="section group">
+                @foreach (var item in relatedProducts)
+                {
+                    var url = "/chi-tiet/" + item.MetaTitle + "-" + item.ID;
+                    <div class="grid_1_of_4 images_1_of_4">
+                        <a href="@url"><img src="@item.Image" alt=""></a>
+                        <div class="price" style="border:none">
+                            <div class="add-cart" style="float:none">
+                                <h4><a href="@url">Add to Cart</a></h4>
+                            </div>
+                            <div class="clear"></div>
+                        </div>
+                    </div>
+                }
+
+            </div>
+        </div>
+        <div class="rightsidebar span_3_of_1">
+            @{ Html.RenderAction("ProductCategory", "Product");}
+            <div class="subscribe">
+                <h2>Newsletters Signup</h2>
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod.......</p>
+                <div class="signup">
+                    <form>
+                        <input type="text" value="E-mail address" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'E-mail address';"><input type="submit" value="Sign up">
+                    </form>
+                </div>
+            </div>
+            <div class="community-poll">
+                <h2>Community POll</h2>
+                <p>What is the main reason for you to purchase products online?</p>
+                <div class="poll">
+                    <form>
+                        <ul>
+                            <li>
+                                <input type="radio" name="vote" class="radio" value="1">
+                                <span class="label"><label>More convenient shipping and delivery </label></span>
+                            </li>
+                            <li>
+                                <input type="radio" name="vote" class="radio" value="2">
+                                <span class="label"><label for="vote_2">Lower price</label></span>
+                            </li>
+                            <li>
+                                <input type="radio" name="vote" class="radio" value="3">
+                                <span class="label"><label for="vote_3">Bigger choice</label></span>
+                            </li>
+                            <li>
+                                <input type="radio" name="vote" class="radio" value="5">
+                                <span class="label"><label for="vote_5">Payments security </label></span>
+                            </li>
+                            <li>
+                                <input type="radio" name="vote" class="radio" value="6">
+                                <span class="label"><label for="vote_6">30-day Money Back Guarantee </label></span>
+                            </li>
+                            <li>
+                                <input type="radio" name="vote" class="radio" value="7">
+                                <span class="label"><label for="vote_7">Other.</label></span>
+                            </li>
+                        </ul>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

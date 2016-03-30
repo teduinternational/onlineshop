@@ -1,0 +1,97 @@
+﻿<!--A Design by W3layouts
+Author: W3layout
+Author URL: http://w3layouts.com
+License: Creative Commons Attribution 3.0 Unported
+License URL: http://creativecommons.org/licenses/by/3.0/
+-->
+<!DOCTYPE HTML>
+<html>
+<head>
+    <title>Free Home Shoppe Website Template | Home :: w3layouts</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link href="/assets/client/css/bootstrap.css" rel="stylesheet" />
+    <link href="/assets/client/css/boostrap-social.css" rel="stylesheet" />
+    <link href="/assets/client/css/font-awesome.min.css" rel="stylesheet" />
+    <link href="/assets/client/css/bootstrap-theme.css" rel="stylesheet" />
+    <link href="/assets/client/css/jquery-ui.css" rel="stylesheet" />
+    <link href="/assets/client/css/style.css" rel="stylesheet" type="text/css" media="all" />
+    <link href="/assets/client/css/slider.css" rel="stylesheet" type="text/css" media="all" />
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="/assets/client/js/jquery-1.11.3.min.js"></script>
+    <script src="/assets/client/js/jquery-ui.js"></script>
+    <script src="/assets/client/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="/assets/client/js/move-top.js"></script>
+    <script type="text/javascript" src="/assets/client/js/easing.js"></script>
+    <script type="text/javascript" src="/assets/client/js/startstop-slider.js"></script>
+</head>
+<body>
+    <div class="wrap">
+        <div class="header">
+            <div class="headertop_desc">
+                @{ Html.RenderAction("TopMenu", "Home");}
+            </div>
+            <div class="header_top">
+                <div class="logo">
+                    <a href="/" ref="nofollow"><img src="/assets/client/images/logo.png" alt="" /></a>
+                </div>
+                @{ Html.RenderAction("HeaderCart", "Home");}
+                <script type="text/javascript">
+			function DropDown(el) {
+				this.dd = el;
+				this.initEvents();
+			}
+			DropDown.prototype = {
+				initEvents : function() {
+					var obj = this;
+
+					obj.dd.on('click', function(event){
+						$(this).toggleClass('active');
+						event.stopPropagation();
+					});
+				}
+			}
+
+			$(function() {
+
+				var dd = new DropDown( $('#dd') );
+
+				$(document).click(function() {
+					// all dropdowns
+					$('.wrapper-dropdown-2').removeClass('active');
+				});
+
+			});
+
+                </script>
+                <div class="clear"></div>
+            </div>
+            <div class="header_bottom">
+                @{Html.RenderAction("MainMenu", "Home"); }
+                <div class="search_box">
+                    <form action="/tim-kiem" method="get">
+                        <input type="text" id="txtKeyword" name="keyword" placeholder="Gõ từ khoá"><input type="submit" value="">
+                    </form>
+                </div>
+                <div class="clear"></div>
+            </div>
+            @RenderSection("slide", required: false)
+        </div>
+        <div class="main">
+            @RenderBody()
+        </div>
+    </div>
+    <div class="footer">
+        @{ Html.RenderAction("Footer", "Home");}
+    </div>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $().UItoTop({ easingType: 'easeOutQuart' });
+
+        });
+    </script>
+    <a href="#" id="toTop"><span id="toTopHover"> </span></a>
+    <script src="/assets/client/js/controller/baseController.js"></script>
+    @RenderSection("jsFooter", required: false)
+</body>
+</html>
