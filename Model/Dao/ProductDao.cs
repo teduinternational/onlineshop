@@ -116,6 +116,13 @@ namespace Model.Dao
             var product = db.Products.Find(productId);
             return db.Products.Where(x => x.ID != productId && x.CategoryID == product.CategoryID).ToList();
         }
+
+        public void UpdateImages(long productId, string images)
+        {
+            var product = db.Products.Find(productId);
+            product.MoreImages = images;
+            db.SaveChanges();
+        }
         public Product ViewDetail(long id)
         {
             return db.Products.Find(id);

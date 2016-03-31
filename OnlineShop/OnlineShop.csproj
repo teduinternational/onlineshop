@@ -224,6 +224,7 @@
     <Content Include="assets\admin\dist\css\sb-admin-2.css" />
     <Content Include="assets\admin\dist\css\timeline.css" />
     <Content Include="assets\admin\dist\js\sb-admin-2.js" />
+    <Content Include="assets\admin\js\controller\productController.js" />
     <Content Include="assets\admin\js\controller\userController.js" />
     <Content Include="assets\admin\js\jquery.validate.unobtrusive.min.js" />
     <Content Include="assets\admin\js\plugins\ckeditor\adapters\jquery.js" />
@@ -1272,6 +1273,7 @@
     <Content Include="Areas\Admin\Views\Content\Edit.cshtml" />
     <Content Include="Areas\Admin\Views\Shared\401.cshtml" />
     <Content Include="Areas\Admin\Views\Product\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Product\Create.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />

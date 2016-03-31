@@ -4,10 +4,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Script.Serialization;
+using System.Xml.Linq;
 
 namespace OnlineShop.Areas.Admin.Controllers
 {
-    public class ProductController : Controller
+    public class ProductController : BaseController
     {
         // GET: Admin/Product
         // GET: Admin/Content
@@ -26,7 +28,53 @@ namespace OnlineShop.Areas.Admin.Controllers
             SetViewBag();
             return View();
         }
+        public JsonResult LoadImages(long id)
+        {
+            ProductDao dao = new ProductDao();
+            var product = dao.ViewDetail(id);
+            var images = product.MoreImages;
+            XElement xImages = XElement.Parse(images);
+            List<string> listImagesReturn = new List<string>();
 
+            foreach (XElement element in xImages.Elements())
+            {
+                listImagesReturn.Add(element.Value);
+            }
+            return Json(new
+            {
+                data = listImagesReturn
+            }, JsonRequestBehavior.AllowGet);
+        }
+        public JsonResult SaveImages(long id, string images)
+        {
+            JavaScriptSerializer serializer = new JavaScriptSerializer();
+            var listImages = serializer.Deserialize<List<string>>(images);
+
+            XElement xElement = new XElement("Images");
+
+            foreach (var item in listImages)
+            {
+                var subStringItem = item.Substring(21);
+                xElement.Add(new XElement("Image", subStringItem));
+            }
+            ProductDao dao = new ProductDao();
+            try
+            {
+                dao.UpdateImages(id, xElement.ToString());
+                return Json(new
+                {
+                    status = true
+                });
+            }
+            catch (Exception ex)
+            {
+                return Json(new
+                {
+                    status = false
+                });
+            }
+
+        }
         public void SetViewBag(long? selectedId = null)
         {
             var dao = new ProductCategoryDao();
